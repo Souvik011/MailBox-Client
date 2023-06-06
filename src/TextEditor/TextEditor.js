@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useState} from "react";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { Row, Col, Container, Card, Button } from "react-bootstrap";
@@ -9,6 +9,7 @@ import { sendMailHandler } from "../store/Mail-Trunk";
 
 const TextEditor = () => {
     const Disptach = useDispatch();
+    const [editorState,setEditorState] = useState(undefined);
   const Enteredemail = React.createRef(null);
   const Enteredsubject = React.createRef(null);
   const Enteredtext = React.createRef(null);
@@ -22,9 +23,13 @@ const TextEditor = () => {
     Disptach(sendMailHandler(mailData));
     console.log(mailData, "TextEditing-FormsubmitHandler");
   };
+
+  const updateTextDescription = (editorState) => {
+    setEditorState(editorState);
+  };
   return (
     <React.Fragment>
-      <Container>
+      <Container fluid>
         <Row>
           <Col>
             <Form className="pt-4" onSubmit={FormsubmitHandler}>
@@ -52,7 +57,7 @@ const TextEditor = () => {
                   </Form.Group>
                   <Form.Group controlId="message" style={{marginTop:"2rem"}}>
                     <Form.Label>Message</Form.Label>
-                    <Form.Control as="textarea" rows={10} ref={Enteredtext} />
+                    <Form.Control as="textarea" rows={10} ref={Enteredtext}  />
                   </Form.Group>
                 </Card.Body>
 
@@ -61,11 +66,11 @@ const TextEditor = () => {
                     Send
                   </Button>
                   <Editor style={{marginLeft:"1rem"}}
-                   
+                    editorState={editorState}
                     toolbarClassName="toolbarClassName"
                     wrapperClassName="wrapperClassName"
                     editorClassName="editorClassName"
-               
+                    onEditorStateChange={updateTextDescription}
                   />
                   
                 </Card.Footer>

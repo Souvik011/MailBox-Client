@@ -15,11 +15,9 @@ const SignUp = () => {
     event.preventDefault();
     const emailValue = emailRef.current.value;
     const passValue = passRef.current.value;
-    const confirmPassValue = confirmPassRef.current.value;
     const obj = {
       email: emailValue,
       password: passValue,
-      confirmPassword: confirmPassRef,
     };
     if (emailValue === "" && passValue === "") {
       return;
@@ -28,9 +26,9 @@ const SignUp = () => {
       emailValue.includes("@") &&
       emailValue.includes(".") &&
       passValue.length > 6 &&
-      confirmPassValue === passValue &&
       !islogin
     ) {
+      confirmPassRef.current.value === passValue &&
       disptach(Sendsignup(obj));
     }
 
