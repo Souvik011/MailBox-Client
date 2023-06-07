@@ -1,9 +1,9 @@
 import React  from "react";
-import { Col, Container, ListGroup, Row  } from "react-bootstrap";
+import { Col, Container, ListGroup, Row , Button  } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useParams } from 'react-router-dom';
 
-import { UpdateList,MsgViewInfo } from "../store/Mail-Trunk";
+import { UpdateList,MsgViewInfo,DeleteMail } from "../store/Mail-Trunk";
 import { Link } from "react-router-dom";
 
 const InboxListItem = (props) => {
@@ -20,7 +20,11 @@ const InboxListItem = (props) => {
       Dispatch(UpdateList(props))
       return;
     }
-  }  
+  };
+
+  const deleteHandler = () => {
+    Dispatch(DeleteMail(props.id));
+  };
   return (
     <>
       <ListGroup.Item
@@ -37,6 +41,11 @@ const InboxListItem = (props) => {
                 <div className={`${Readreceipt}`}>.</div>
                 <Link to="mailview">{props.email}</Link>
               </div>
+            </Col>
+            <Col md={1} style={{ height: "20px" }}>
+              <Button variant="secondary" onClick={deleteHandler}>
+                delete
+              </Button>
             </Col>
 
             

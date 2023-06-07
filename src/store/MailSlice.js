@@ -24,7 +24,11 @@ const MailSlice = createSlice({
     },
     addMessageViewinfo(state, action) {
       state.messageView = action.payload;
-  }
+  },
+  DeleteItem(state, action) {
+    state.count = state.count + 1;
+    console.log("deleted");
+  },
 }});
 export const MailSliceAction = MailSlice.actions;
 export default MailSlice;

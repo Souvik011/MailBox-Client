@@ -119,11 +119,40 @@ export const MsgViewInfo  = (messageId) => {
     };
     try {
       const data = await gettingMsg();
-      
       Disptach(MailSliceAction.addMessageViewinfo(data));
     } catch (error) {
       console.log(error.message);
     }
   };
 
+};
+
+export const DeleteMail = (id) => {
+  return async (Dispatch) => {
+    let emailId = localStorage.getItem("mailid").replace(/[&@.]/g, "");
+
+    const DeletingMail = async () => {
+      const response = await fetch(
+        `https://mailbox-client-a617d-default-rtdb.firebaseio.com/${emailId}/${id}.json`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+      if (data.error) {
+        console.log(data);
+      }
+      return data;
+    };
+    try {
+      const data = await DeletingMail();
+      
+      
+    } catch (error) {
+      
+    }
+  };
 };
