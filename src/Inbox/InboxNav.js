@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Form, Button,Navbar,Nav} from "react-bootstrap";
+import {Link} from "react-router-dom";
 import './Inbox.css';
 
 const InboxNav = () => {
@@ -14,7 +15,7 @@ const InboxNav = () => {
           ></img>
 
           <Nav>
-            <Nav.Link>Home</Nav.Link>
+            <Link to="/inboxpage" style={{color:"black" }}>Home</Link>
           </Nav>
           <Form className="d-flex pl-5" style={{ width: "600px" }}>
             <Form.Control

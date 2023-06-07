@@ -6,7 +6,7 @@ import classes from "./signup.module.css";
 
 const SignUp = () => {
   const disptach = useDispatch();
-  const islogin = useSelector((state) => state.auth.islogin);
+  const signup = useSelector((state) => state.auth.signup);
   const emailRef = useRef("");
   const passRef = useRef("");
   const confirmPassRef = useRef("");
@@ -26,13 +26,12 @@ const SignUp = () => {
       emailValue.includes("@") &&
       emailValue.includes(".") &&
       passValue.length > 6 &&
-      !islogin
+      !signup 
     ) {
-      confirmPassRef.current.value === passValue &&
       disptach(Sendsignup(obj));
     }
 
-    if (islogin) {
+    if (signup) {
       disptach(Sendlogin(obj));
     }
   };
@@ -56,7 +55,7 @@ const SignUp = () => {
                 fontStyle: "oblique",
               }}
             >
-              {islogin ? "Login" : "SignUp"}
+              {signup ? "Login" : "SignUp"}
             </h3>
             <Form.Group controlId="email" style={{ paddingRight: "2rem" }}>
               <Form.Control
@@ -75,7 +74,7 @@ const SignUp = () => {
                 ref={passRef}
               ></Form.Control>
             </Form.Group>
-            {!islogin && (
+            {!signup && (
               <Form.Group
                 controlId="Confirm Password"
                 style={{ paddingRight: "2rem" }}
@@ -93,7 +92,7 @@ const SignUp = () => {
               variant="primary"
               className="justify-content-center"
             >
-              {islogin ? "Login" : "SignUp"}
+              {signup ? "Login" : "SignUp"}
             </Button>
             <Form.Group controlId="toggleButton" style={{backgroundColor:"whitesmoke", margin:"12px auto"}}>
               <Button
@@ -102,7 +101,7 @@ const SignUp = () => {
                 onClick={buttonToggle}
                 style={{ width: "auto" }}
               >
-                {islogin ? "Doesn't Have an Account ? SignUp" : "Already Have an Account ? Log In"}
+                {signup ? "Doesn't Have an Account ? SignUp" : "Already Have an Account ? Log In"}
               </Button>
             </Form.Group>
           </Form>

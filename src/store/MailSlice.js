@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialval = { sendMail: false, getMail: false, items: [] };
+const initialval = { sendMail: false, getMail: false, items: [],count: 0,messageView: {}, };
 
 const MailSlice = createSlice({
   name: "mail",
@@ -8,15 +8,23 @@ const MailSlice = createSlice({
   reducers: {
     setSentData(state, action) {
       state.sendMail = !state.sendMail;
-      localStorage.setItem("mailid",action.payload);
+      state.count = state.count+1;
+
     },
     setGetMail(state, action) {
       console.log("getmail");
     },
-    updateItem(state, action) {
+    addItem(state,action) {
       state.items = action.payload;
-    }
+      console.log(state.unread);
+    },
+    updateItem(state, action) {
+      state.items = action.payload ;
+      state.count = state.count+1;
+    },
+    addMessageViewinfo(state, action) {
+      state.messageView = action.payload;
   }
-});
+}});
 export const MailSliceAction = MailSlice.actions;
 export default MailSlice;

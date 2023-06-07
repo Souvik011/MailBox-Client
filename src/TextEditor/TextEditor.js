@@ -1,10 +1,12 @@
 import React , {useState} from "react";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { Row, Col, Container, Card, Button } from "react-bootstrap";
+import { Row, Col, Container, Card, Button , ListGroup } from "react-bootstrap";
+import {Link} from "react-router-dom";
 import { Form } from "react-bootstrap";
 import "./TextEditor.css";
 import { useDispatch } from "react-redux";
+import InboxNav from "../Inbox/InboxNav";
 import { sendMailHandler } from "../store/Mail-Trunk";
 
 const TextEditor = () => {
@@ -19,6 +21,7 @@ const TextEditor = () => {
       email: Enteredemail.current.value,
       subject: Enteredsubject.current.value,
       text: Enteredsubject.current.value,
+      readreceipt:false
     };
     Disptach(sendMailHandler(mailData));
     console.log(mailData, "TextEditing-FormsubmitHandler");
@@ -29,18 +32,33 @@ const TextEditor = () => {
   };
   return (
     <React.Fragment>
+      <InboxNav />
       <Container fluid>
         <Row>
-          <Col>
+        <Col xs={2} className=" bg-info" variant="primary">
+            <ListGroup className="p-2" as="ul">
+            <Link to="/compose"><ListGroup.Item className="m-1 bg-" action>
+                Compose
+              </ListGroup.Item></Link>
+              <Link to="/inboxpage" ><ListGroup.Item className="m-1 bg-" action>
+                Inbox
+              </ListGroup.Item></Link>
+              <ListGroup.Item className="m-1" action>
+                SendMail
+              </ListGroup.Item>
+              <ListGroup.Item className="m-1" action>
+                DraftBox
+              </ListGroup.Item>
+            </ListGroup>
+          </Col>
+          
+          <Col xs={10}>
             <Form className="pt-4" onSubmit={FormsubmitHandler}>
               <Card style={{ width: "auto" }} border="success">
-                <Card.Header>
-                  <h3 style={{textAlign:"center"}}>Mail Box </h3>
-                </Card.Header>
                 <Card.Body className="colours">
                   <Form.Group controlId="email" style={{display:"table" , width:"auto"}}>
                     <Form.Label style={{float:"left",width:"auto"}}>To :</Form.Label>
-                    <Form.Control style={{float:"left",width:"64rem",height:"2rem" , marginLeft:"1rem"}}
+                    <Form.Control style={{float:"left",width:"56rem",height:"2rem" , marginLeft:"1rem"}}
                       size="sm"
                       type="email"
                       placeholder="Enter Email"
@@ -49,7 +67,7 @@ const TextEditor = () => {
                   </Form.Group>
                   <Form.Group controlId="subject" style={{display:"table" , width:"auto" , marginTop:"2rem"}}>
                     <Form.Label style={{float:"left",width:"auto"}}>Subject : </Form.Label>
-                    <Form.Control style={{float:"left",width:"62rem",marginLeft:"1rem"}}
+                    <Form.Control style={{float:"left",width:"54rem",marginLeft:"1rem"}}
                       type="text"
                       placeholder="Enter subject"
                       ref={Enteredsubject}

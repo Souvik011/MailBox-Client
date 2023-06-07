@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 
 const InboxList = () => {
   const Items = useSelector((state) => state.mail.items);
+  console.log(Items);
 
   return (
     <>
