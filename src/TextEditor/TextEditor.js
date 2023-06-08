@@ -5,12 +5,20 @@ import { Row, Col, Container, Card, Button , ListGroup } from "react-bootstrap";
 import {Link} from "react-router-dom";
 import { Form } from "react-bootstrap";
 import "./TextEditor.css";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import InboxNav from "../Inbox/InboxNav";
 import { sendMailHandler } from "../store/Mail-Trunk";
 
 const TextEditor = () => {
     const Disptach = useDispatch();
+    const Items = useSelector((state) => state.mail.items);
+    let Unreadmessage = 0;
+    Items.map((item) => {
+      if (item.readreceipt === false) {
+        return Unreadmessage++;
+      }
+      return Unreadmessage;
+    });
     const [editorState,setEditorState] = useState(undefined);
   const Enteredemail = React.createRef(null);
   const Enteredsubject = React.createRef(null);
@@ -20,7 +28,7 @@ const TextEditor = () => {
     const mailData = {
       email: Enteredemail.current.value,
       subject: Enteredsubject.current.value,
-      text: Enteredsubject.current.value,
+      text: Enteredtext.current.value,
       readreceipt:false
     };
     Disptach(sendMailHandler(mailData));
@@ -41,11 +49,13 @@ const TextEditor = () => {
                 Compose
               </ListGroup.Item></Link>
               <Link to="/inboxpage" ><ListGroup.Item className="m-1 bg-" action>
-                Inbox
+              <div className="inbox-count">
+                  <p>Inbox</p> <h6>{Unreadmessage}</h6>
+                </div>
               </ListGroup.Item></Link>
-              <ListGroup.Item className="m-1" action>
+              <Link to="/sendbox" ><ListGroup.Item className="m-1" action>
                 SendMail
-              </ListGroup.Item>
+              </ListGroup.Item></Link>
               <ListGroup.Item className="m-1" action>
                 DraftBox
               </ListGroup.Item>

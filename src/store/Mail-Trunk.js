@@ -32,7 +32,10 @@ export const sendMailHandler = (mailobj) => {
 
 
 export const getmailHandler = () => {
-  let emailId = localStorage.getItem("mailid").replace(/[&@.]/g, "");
+  let emailId;
+  if(localStorage.getItem("mailid")){
+   emailId = localStorage.getItem("mailid").replace(/[&@.]/g, "");
+  };
   return async (Disptach) => {
     const gettingMailList = async () => {
       const response = await fetch(
@@ -132,6 +135,9 @@ export const DeleteMail = (id) => {
     let emailId = localStorage.getItem("mailid").replace(/[&@.]/g, "");
 
     const DeletingMail = async () => {
+      
+    
+    try {
       const response = await fetch(
         `https://mailbox-client-a617d-default-rtdb.firebaseio.com/${emailId}/${id}.json`,
         {
@@ -142,17 +148,13 @@ export const DeleteMail = (id) => {
         }
       );
       const data = await response.json();
-      if (data.error) {
-        console.log(data);
-      }
-      return data;
-    };
-    try {
-      const data = await DeletingMail();
-      
-      
+      console.log(data);
+      console.log("Deleting This working Mail");
+      Dispatch(getmailHandler());
     } catch (error) {
-      
+      console.log(error.message);
     }
   };
+  DeletingMail();
+};
 };

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialval = { sendMail: false, getMail: false, items: [],count: 0,messageView: {}, };
+const initialval = { sendMail: false, getMail: false, items: [],count: 0,messageView: {}, sentItem:[]};
 
 const MailSlice = createSlice({
   name: "mail",
@@ -16,18 +16,16 @@ const MailSlice = createSlice({
     },
     addItem(state,action) {
       state.items = action.payload;
+      state.sentItem = action.payload;
       console.log(state.unread);
     },
     updateItem(state, action) {
       state.items = action.payload ;
+      state.sentItem = action.payload;
       state.count = state.count+1;
     },
     addMessageViewinfo(state, action) {
       state.messageView = action.payload;
-  },
-  DeleteItem(state, action) {
-    state.count = state.count + 1;
-    console.log("deleted");
   },
 }});
 export const MailSliceAction = MailSlice.actions;

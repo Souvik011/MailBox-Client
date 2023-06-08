@@ -1,5 +1,5 @@
 .signUp {
-    margin: 10rem auto;
+    margin-top: 8rem ;
     width: 95%;
     max-width: 25rem;
     border-radius: 6px;
@@ -42,3 +42,5 @@
     height: auto;
     width: auto;
   }
+
+  

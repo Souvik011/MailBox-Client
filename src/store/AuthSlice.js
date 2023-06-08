@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialAuth = {
-  islogin: localStorage.getItem("islogin"),
-  signup: localStorage.getItem("signup"),
+  islogin: false,
+  signup: false,
   forgetPassowrd: false,
   email: null ,
   idToken: null,
@@ -30,7 +30,18 @@ const AuthSlice = createSlice({
       localStorage.setItem("signup" ,!state.signup);
       state.signup = !state.signup;
       
+      
     },
+    forgetVisible(state) {
+      state.forgetPassowrd = !state.forgetPassowrd;
+    },
+    logout(state) {
+      state.islogin = false;
+      state.signup = false;
+    },
+    forgetPassowrd(state) {
+      state.forgetPassowrd = false;
+    }
   },
 });
 export const AuthAction = AuthSlice.actions;

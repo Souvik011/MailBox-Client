@@ -10,7 +10,7 @@ const ViewMessage = (props) => {
   console.log(messageView, " mymailmessageView");
   
   const replybuttonHandler = () => {
-    navigate("/main/text-edit");
+    navigate("/compose");
   };
   return (
     <React.Fragment>

@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
-import "./Inbox.css";
+import "../Inbox/Inbox.css";
 import { Container, Row, Col, ListGroup} from "react-bootstrap";
 import { Link } from "react-router-dom";
-import InboxList from "./InboxList";
-import InboxNav from "./InboxNav";
-import { getmailHandler  } from "../store/Mail-Trunk";
+import SendBoxList from "./SendBoxList";
+import InboxNav from "../Inbox/InboxNav";
 import { useSelector, useDispatch } from "react-redux";
+import { getmailHandler } from "../store/Mail-Trunk";
 
 
 
-const InboxPage = () => {
+const SendBoxPage = () => {
 
     const Items = useSelector((state) => state.mail.items);
     const mail = localStorage.getItem("mailid");
@@ -24,7 +24,7 @@ const InboxPage = () => {
     const Disptach = useDispatch();
     useEffect(() => {
       Disptach(getmailHandler());
-    }, [mail,Disptach]);
+    }, [mail]);
     // useEffect(() => {
     //   Disptach(getmailHandler());
     // }, [Count]);
@@ -42,21 +42,21 @@ const InboxPage = () => {
                   Compose
                 </ListGroup.Item>
               </Link>
-              <ListGroup.Item className="m-1 bg-" action>
+              <Link to="/inboxpage"><ListGroup.Item className="m-1 bg-" action>
                 <div className="inbox-count">
                   <p>Inbox</p> <h6>{Unreadmessage}</h6>
                 </div>
-              </ListGroup.Item>
-              <Link to="/sendbox"><ListGroup.Item className="m-1" action>
-                SendMail
               </ListGroup.Item></Link>
+              <ListGroup.Item className="m-1" action>
+                SendMail
+              </ListGroup.Item>
               <ListGroup.Item className="m-1" action>
                 DraftBox
               </ListGroup.Item>
             </ListGroup>
           </Col>
           <Col xs={10} className="">
-          <InboxList />
+          <SendBoxList />
           </Col>
         </Row>
       </Container>
@@ -64,4 +64,4 @@ const InboxPage = () => {
   );
 };
 
-export default InboxPage;
+export default SendBoxPage;

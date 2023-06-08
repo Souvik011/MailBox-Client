@@ -4,6 +4,7 @@ const loginURL =
   "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBKhYLI8muDF7nwER_abab3OcVOKw9zQa0";
 const signupUrl =
   "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBKhYLI8muDF7nwER_abab3OcVOKw9zQa0";
+const forgotPassUrl = "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyBKhYLI8muDF7nwER_abab3OcVOKw9zQa0"
 
   export const Sendsignup = (obj) => {
     return async (dispatch) => {
@@ -71,5 +72,42 @@ const signupUrl =
   export const SendUiVisible = () => {
     return async (dispatch) => {
         dispatch(AuthAction.UiVisible());
+    };
+  };
+
+  export const SendForgetPassVisible = () => {
+    return async (dispatch) => {
+        dispatch(AuthAction.forgetVisible());
+    };
+  };
+
+  export const SendForgotPassward  = (email) => {
+    return (dispatch) => {
+      const ForgotPass = async (email) => {
+        try{
+          const response = await fetch (forgotPassUrl,{
+            method: "POST",
+            body: JSON.stringify({
+              email: email,
+              requestType: "PASSWORD_RESET",
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+
+          const data = await response.json();
+          dispatch(AuthAction.forgetPassowrd());
+          if (data.error) {
+            alert(data.error.message);
+            throw new Error(data.error.message);
+          }
+    
+        }
+        catch(error){  console.log(error);
+
+        }
+      };
+      ForgotPass(email);
     };
   };
