@@ -25,9 +25,6 @@ const InboxPage = () => {
     useEffect(() => {
       Disptach(getmailHandler());
     }, [mail,Disptach]);
-    // useEffect(() => {
-    //   Disptach(getmailHandler());
-    // }, [Count]);
     
      
   return (
@@ -42,14 +39,14 @@ const InboxPage = () => {
                   Compose
                 </ListGroup.Item>
               </Link>
+              <Link to="/inboxpage"><ListGroup.Item className="m-1" action>
+                Inbox
+              </ListGroup.Item></Link>
               <ListGroup.Item className="m-1 bg-" action>
                 <div className="inbox-count">
-                  <p>Inbox</p> <h6>{Unreadmessage}</h6>
+                  <p>SendMail</p> <h6>{Unreadmessage}</h6>
                 </div>
               </ListGroup.Item>
-              <Link to="/sendbox"><ListGroup.Item className="m-1" action>
-                SendMail
-              </ListGroup.Item></Link>
               <ListGroup.Item className="m-1" action>
                 DraftBox
               </ListGroup.Item>

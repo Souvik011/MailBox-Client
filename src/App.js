@@ -22,13 +22,13 @@ console.log(islogin);
          {islogin ? (<Route path="/signup" element={<InboxPage/>} />) : (<Route path="/signup" element={<SignUp />} />)}
 
        
-         {islogin ? (<Route path="/inboxpage" element={<InboxPage/>} />) : (<Route path="/inboxpage" element={<SignUp />} />)}
+         {islogin ? (<Route path="/sendbox" element={<InboxPage/>} />) : (<Route path="/inboxpage" element={<SignUp />} />)}
 
-         {islogin ? (<Route path="/inboxpage/:messageId" element={<ViewMessage/>} />) : (<Route path="/inboxpage/:messageId" element={<SignUp />} />)}
+         {islogin ? (<Route path="/sendbox/:messageId" element={<ViewMessage/>} />) : (<Route path="/inboxpage/:messageId" element={<SignUp />} />)}
 
-         {islogin ? (<Route path="/sendbox" element={<SendBoxPage/>} />) : (<Route path="/inboxpage/:messageId" element={<SignUp />} />)}
+         {islogin ? (<Route path="/inboxpage" element={<SendBoxPage/>} />) : (<Route path="/inboxpage/:messageId" element={<SignUp />} />)}
         
-         {islogin ? (<Route path="/sendbox/:messageId" element={<SentMessageView/>} />) : (<Route path="/sendpage/:messageId" element={<SignUp />} />)}
+         {islogin ? (<Route path="/inboxpage/:messageId" element={<SentMessageView/>} />) : (<Route path="/sendpage/:messageId" element={<SignUp />} />)}
 
          
     </Routes>

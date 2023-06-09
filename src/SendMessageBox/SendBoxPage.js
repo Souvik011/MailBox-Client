@@ -5,13 +5,14 @@ import { Link } from "react-router-dom";
 import SendBoxList from "./SendBoxList";
 import InboxNav from "../Inbox/InboxNav";
 import { useSelector, useDispatch } from "react-redux";
-import { getmailHandler } from "../store/Mail-Trunk";
+import { getSendMailList } from "../store/Mail-Trunk";
 
 
 
 const SendBoxPage = () => {
 
     const Items = useSelector((state) => state.mail.items);
+    const sendItem = useSelector((state) => state.send.sentItem);
     const mail = localStorage.getItem("mailid");
     let Unreadmessage = 0;
     Items.map((item) => {
@@ -21,13 +22,32 @@ const SendBoxPage = () => {
       return Unreadmessage;
     });
 
+    let sendCount = 0 ;
+    sendItem.map((item) => {
+      if (item.readreceipt === false) {
+        return sendCount++;
+      }
+      return sendCount;
+    });
+
+
     const Disptach = useDispatch();
     useEffect(() => {
-      Disptach(getmailHandler());
-    }, [mail]);
-    // useEffect(() => {
-    //   Disptach(getmailHandler());
-    // }, [Count]);
+      Disptach(getSendMailList());
+    }, [mail,Disptach]);
+
+    useEffect(() => {
+      const intervelid = setInterval(() => {
+        console.log("setintervelid", intervelid);
+        Disptach(getSendMailList());
+      }, 2000);
+  
+      return () => {
+        console.log("clearintervalid", intervelid);
+        clearInterval(intervelid);
+      };
+    });
+    
     
      
   return (
@@ -42,14 +62,17 @@ const SendBoxPage = () => {
                   Compose
                 </ListGroup.Item>
               </Link>
-              <Link to="/inboxpage"><ListGroup.Item className="m-1 bg-" action>
+              
+              <ListGroup.Item className="m-1" action>
+              <div className="inbox-count">
+              <p>Inbox</p> <h6>{sendCount}</h6>
+                </div>
+              </ListGroup.Item>
+              <Link to="/sendbox"><ListGroup.Item className="m-1 bg-" action>
                 <div className="inbox-count">
-                  <p>Inbox</p> <h6>{Unreadmessage}</h6>
+                  <p>SendMail</p> <h6>{Unreadmessage}</h6>
                 </div>
               </ListGroup.Item></Link>
-              <ListGroup.Item className="m-1" action>
-                SendMail
-              </ListGroup.Item>
               <ListGroup.Item className="m-1" action>
                 DraftBox
               </ListGroup.Item>

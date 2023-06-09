@@ -3,19 +3,20 @@ import { Col, Container, ListGroup, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
-import { SendSliceAction } from "../store/SendMailSlice";
+import { SendMsgViewInfo,UpdateSendList,DeleteSendMail } from "../store/Mail-Trunk";
 
 const SendBoxListItem = (props) => {
   const Dispatch = useDispatch();
   console.log("deatails/", props);
-  let Readreceipt;
-  if (!props.readreceipt) {
-    Readreceipt = "readreceipt";
-  }
   const ListItemHandler = () => {
-    Dispatch(SendSliceAction.addMessageViewinfo(props));
+    Dispatch(SendMsgViewInfo(props.id));
+    if (!props.readreceipt) {
+      Dispatch(UpdateSendList(props))
+      return;
+    }
   };
   const deleteHandler = () => {
+    Dispatch(DeleteSendMail(props.id));
     console.log("sendmeeage page");
   };
   return (
@@ -30,7 +31,7 @@ const SendBoxListItem = (props) => {
           <Row>
             <Col className="pb-3">
               <div className="readreceiptbox" onClick={ListItemHandler}>
-                <Link to="sentmailview">{props.email}</Link>
+                <Link to="sentmailview">{props.sendermail} <div> {props.subject}</div>  </Link>
               </div>
             </Col>
 

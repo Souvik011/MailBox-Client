@@ -37,7 +37,7 @@ const InboxListItem = (props) => {
             <Col className="pb-3">
               <div className="readreceiptbox" onClick={ListItemHandler}>
                 <div className={`${Readreceipt}`}>.</div>
-                <Link to="mailview">{props.email}</Link>
+                <Link to="mailview">{props.email} {props.subject}</Link>
               </div>
             </Col>
             <Col md={1} style={{ height: "20px" }}>

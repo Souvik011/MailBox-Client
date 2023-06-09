@@ -1,15 +1,19 @@
 import React from "react";
 import { Button, Card } from "react-bootstrap";
 // import CloseButton from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { useNavigate} from "react-router-dom";
+import { reply ,ToggleReply} from "../store/Mail-Trunk";
 
 const ViewMessage = (props) => {
   let messageView = useSelector((state) => state.mail.messageView);
+  const Dispatch = useDispatch();
   const navigate = useNavigate();
   console.log(messageView, " mymailmessageView");
   
   const replybuttonHandler = () => {
+    Dispatch(reply(messageView.email));
+    Dispatch(ToggleReply());
     navigate("/compose");
   };
   return (

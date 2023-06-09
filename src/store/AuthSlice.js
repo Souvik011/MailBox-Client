@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialAuth = {
-  islogin: false,
+  islogin: localStorage.getItem("islogin"),
   signup: false,
   forgetPassowrd: false,
   email: null ,
@@ -24,7 +24,7 @@ const AuthSlice = createSlice({
       localStorage.setItem("islogin" , true);
       state.email = localStorage.getItem("mailid");
       state.idToken =  localStorage.getItem("id");
-      state.islogin = true;
+      state.islogin = localStorage.getItem("islogin");
     },
     UiVisible(state) {
       localStorage.setItem("signup" ,!state.signup);
@@ -36,7 +36,8 @@ const AuthSlice = createSlice({
       state.forgetPassowrd = !state.forgetPassowrd;
     },
     logout(state) {
-      state.islogin = false;
+      localStorage.setItem("islogin" , false);
+      state.islogin = localStorage.getItem("islogin");
       state.signup = false;
     },
     forgetPassowrd(state) {

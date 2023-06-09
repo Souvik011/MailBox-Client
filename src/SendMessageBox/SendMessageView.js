@@ -1,12 +1,19 @@
 import React from "react";
 import { Button, Card } from "react-bootstrap";
 import { useSelector } from "react-redux";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { reply ,ToggleReply} from "../store/Mail-Trunk";
+import { useDispatch } from "react-redux";
 
 const SentMessageView = (props) => {
+  const navigate = useNavigate();
+  const Dispatch = useDispatch();
   const messageView = useSelector((state) => state.send.messageView);
   console.log(messageView, " mymailmessageView");
   const replybuttonHandler = () => {
+    Dispatch(reply(messageView.email));
+    Dispatch(ToggleReply());
+    navigate("/compose");
   };
   return (
     <React.Fragment>
@@ -19,7 +26,7 @@ const SentMessageView = (props) => {
         </Card.Body>
         <Card.Footer>
           <h6>{messageView.email}</h6>
-          <Button onClick={replybuttonHandler}>ReSend</Button>
+          <Button onClick={replybuttonHandler}>Reply</Button>
         </Card.Footer>
       </Card>
     </React.Fragment>

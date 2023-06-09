@@ -8,8 +8,8 @@
   }
   .readreceipt {
     display: flex;
-    background-color: rgb(255, 176, 6);
-    width: 2%;
+    background-color: rgb(55, 194, 74);
+    width: 1%;
     border-radius: 25px;
     max-height: 1.3vh;
   }

@@ -4,7 +4,7 @@ import SendBoxListItem from './SendBoxListItem';
 
 import { useSelector} from "react-redux";
 const SendBoxList = () => {
-  const sentItem = useSelector((state) => state.mail.sentItem);
+  const sentItem = useSelector((state) => state.send.sentItem);
   useEffect(() => {
     console.log(sentItem);
   }, [sentItem]);
@@ -14,6 +14,7 @@ const SendBoxList = () => {
         {sentItem.map((item) => (
           <SendBoxListItem
             key={item.id}
+            sendermail = {item.sendermail}
             email={item.email}
             subject={item.subject}
             text={item.text}

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialSendState = { Triggerval: 0, sentItem: [], messageView: {} };
+const initialSendState = { Triggerval: 0, sentItem: [], messageView: {}, reply:localStorage.getItem("mailid"),replymode:false };
 
 const SendSlice = createSlice({
   name: "mymail",
@@ -10,13 +10,22 @@ const SendSlice = createSlice({
       state.Triggerval = state.Triggerval + 1;
     },
     AddSenditemList(state, action) {
-      const newItem = action.payload;
+      state.sentItem = action.payload;
 
-      state.sentItem.push(newItem);
+     
     },
     addMessageViewinfo(state, action) {
       state.messageView = action.payload;
     },
+    updateSendItem(state, action) {
+      state.items = action.payload ;
+    },
+    reply(state,action) {
+      state.reply = action.payload
+    },
+    toggleReply (state) {
+      state.replymode = !state.replymode;
+    }
   },
 });
 export const SendSliceAction = SendSlice.actions;

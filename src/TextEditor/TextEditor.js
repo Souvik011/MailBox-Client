@@ -7,11 +7,14 @@ import { Form } from "react-bootstrap";
 import "./TextEditor.css";
 import { useDispatch,useSelector } from "react-redux";
 import InboxNav from "../Inbox/InboxNav";
-import { sendMailHandler } from "../store/Mail-Trunk";
+import { sendMailHandler,ToggleReply } from "../store/Mail-Trunk";
 
 const TextEditor = () => {
     const Disptach = useDispatch();
     const Items = useSelector((state) => state.mail.items);
+    const replymail =  useSelector((state) => state.send.reply);
+    const replymode = useSelector((state) => state.send.replymode);
+    console.log(replymode);
     let Unreadmessage = 0;
     Items.map((item) => {
       if (item.readreceipt === false) {
@@ -26,11 +29,13 @@ const TextEditor = () => {
   const FormsubmitHandler = (event) => {
     event.preventDefault();
     const mailData = {
+      sendermail:localStorage.getItem("mailid"),
       email: Enteredemail.current.value,
       subject: Enteredsubject.current.value,
       text: Enteredtext.current.value,
       readreceipt:false
     };
+    Disptach(ToggleReply());
     Disptach(sendMailHandler(mailData));
     console.log(mailData, "TextEditing-FormsubmitHandler");
   };
@@ -71,7 +76,7 @@ const TextEditor = () => {
                     <Form.Control style={{float:"left",width:"56rem",height:"2rem" , marginLeft:"1rem"}}
                       size="sm"
                       type="email"
-                      placeholder="Enter Email"
+                      placeholder={replymode ?replymail : "Enter Email"}
                       ref={Enteredemail}
                     ></Form.Control>
                   </Form.Group>
